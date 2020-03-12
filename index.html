@@ -1,159 +1,329 @@
 <!doctype html>
-<html lang="en">
+
+<html>
+	
+<head>
+	
+<!--The following displays language used in browser to interpret page -->
+<meta charset="UTF-8">
+
+<!--The following line of code displays the page title on a browser tab -->
+<title>SLOstocked - Super Smash Bros. in SLO and beyond</title>
+
+<!--link tags are for linking to external files, in this case your CSS stylesheet-->
+<link href="style.css" rel="stylesheet" type="text/css">
+	
+<!--link tags are for linking to external files, in this case a special CSS stylesheet-->
+<link href="normalize.css" rel="stylesheet" type="text/css">
+
+<!--the following tag tells the browser to adjust the site according to screen size-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--The following code links to the jquery library -->
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+
+<!--The following code links to the javascript file that runs the slideshow -->	
+<script type="text/javascript" src="js/jquery.cycle2.min.js"></script>
     
-    <head>
-        <meta charset="utf-8" />
-            <title>SLO Super Smash Bros. | HOME</title>
-            <link href="style.css" rel="stylesheet" type="text/css">
-        
-    </head>
-    <body>
-    <!-- Slideshow container -->
-<div class="slideshow-container">
+<!--The following code links to the javascript file that runs the parallax image -->    
+<script src="js/parallax.min.js"></script>
+	
+<!--The following code links to Google Fonts-->
+<link href="https://fonts.googleapis.com/css?family=Raleway:900|Rubik" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oxanium" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
-  <!-- Full-width images with number and caption text -->
-  <div class="mySlides fade">
-    <div class="numbertext">1 / 10</div>
-    <img src="PHOTO-ESSAY/introduction.jpg" style="width:100%">
-    <div class="text">On Saturday, Feb. 8, SLO Smash Community members gathered in Engineering IV (Bldg. 192) to compete in the third edition of Ultimate Polytown Slo-down, known within the community as UPS. The competition began with a doubles tournament, which saw teams of two duke it out against each other to be crowned the top pairing.
+	
+<!--The following javscript runs the jquery slideshow -->
+<script type="text/javascript">
+$('#slider').cycle({});
+</script>
 
-In total, 13 teams participated in Saturday's tournament. (Feb. 8, 2020 | San Luis Obispo, Calif.)
-</div>
-  </div>
+<!--The following javascript runs the nav bar which disappears on scroll-->
+<script type="text/javascript">
+// Hide Header on on scroll down
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('header').outerHeight();
 
-  <div class="mySlides fade">
-    <div class="numbertext">2 / 10</div>
-    <img src="PHOTO-ESSAY/treasurer.jpg" style="width:100%">
-    <div class="text">Economics junior and SLO Smash Community Treasurer James Hasbany said attendance at tournaments has increased over the last few years because of the popularity of the Nintendo Switch, which has the latest edition of the Super Smash Bros. video game, compared to the Nintendo Wii U. 
+$(window).scroll(function(event){
+    didScroll = true;
+});
 
-    "The Wii U was the kind of console that your friend had but nobody else had," Hasbany said.
+setInterval(function() {
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 250);
 
-    The Nintendo Switch has sold 52.48 million units worldwide as of Dec. 31, 2019, compared to the Wii U's 13.56 million units sold, according to Nintendo financial data. (Feb. 8, 2020 | San Luis Obispo, Calif.)
-</div>
-  </div>
-
-  <div class="mySlides fade">
-    <div class="numbertext">3 / 10</div>
-    <img src="PHOTO-ESSAY/environment.jpg" style="width:100%">
-    <div class="text">Some pairs, however, have been showing up for a while. For political science senior Mateen Nozzari and philosophy senior Bryce Myers, this was not their first tournament as a duo, but they have not won a tournament either. Myers, however, said he's "come close" in the past as he's "tried to get better in college." Myers said he began playing the Smash Bros. series around 2005. (Feb. 8, 2020 | San Luis Obispo, Calif.)
-</div>
-  </div>
+function hasScrolled() {
+    var st = $(this).scrollTop();
     
-    <div class="mySlides fade"> 
-    <div class="numbertext">4 / 10</div>
-    <img src="PHOTO-ESSAY/close-up.jpg" style="width:100%">    
-    <div class="text">Nozzari fumbled through his backpack to untangle his Nintendo Switch Pro Controller cords. Switch controllers are one of two types of controllers used in the competitive Super Smash Bros. scene, along with old-school Nintendo GameCube controllers. 
-
-Usage of controllers depends on when a player began playing Smash Bros., according to mechanical engineering senior and club member Jared Palmer. Those who have played longer will often use GameCube controllers, Palmer said, while newer players use the Switch Pro Controller.
-
-"I know that it feels very natural and you can really get those nutty little inputs," Nozzari said. "You can get kind of saucy with it." (Feb. 8, 2020 | San Luis Obispo, Calif.)
-</div>
-    </div>
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta)
+        return;
     
-    <div class="mySlides fade"> 
-    <div class="numbertext">5 / 10</div>
-    <img src="PHOTO-ESSAY/first%20round.jpg" style="width:100%">    
-    <div class="text">After moments of preparation with practice rounds across the tournament venue, Nozzari and Myers are paired up for their first match of the tournament. Their opponents are Nick Plewtong and Andres Hernandez, both of whom are Cal Poly alumni.
-
-All four players joked about the high probability of "cheese" during their match. Cheese is considered to be an unorthodox strategy and "abusing some of the mechanics," according to Plewtong. (Feb. 8, 2020 | San Luis Obispo, Calif.)
-</div>
-    </div>
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('header').removeClass('nav-down').addClass('nav-up');
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('header').removeClass('nav-up').addClass('nav-down');
+        }
+    }
     
-    <div class="mySlides fade"> 
-    <div class="numbertext">6 / 10</div>
-    <img src="PHOTO-ESSAY/shocked%20reaction.jpg" style="width:100%">    
-    <div class="text">Almost immediately into the first game of the three-game match, Nozzari, Myers and their opponents were caught off-guard after Myers saved his character from losing a life. It was pure cheese.
-
-The first game ended in favor of the Nozzari-Myers duo, but their opponents came back to win the match 2-1. (Feb. 8, 2020 | San Luis Obispo, Calif.)
-</div>
-    </div>
+    lastScrollTop = st;
+}
+</script>
     
-    <div class="mySlides fade"> 
-    <div class="numbertext">7 / 10</div>
-    <img src="PHOTO-ESSAY/second%20round%20matchup.jpg" style="width:100%">    
-    <div class="text">After their first round loss, Nozzari and Myers took on another pair that lost their first round match: Hasbany and mathematics junior Timothy Royston. All four are making last moment preparations before their elimination game begins. (Feb. 8, 2020 | San Luis Obispo, Calif.)
-</div>
-    </div>
+<!--Favicon - images are in a folder called 'fav'-->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#b91d47">
+<meta name="theme-color" content="#ffffff">
+<!--End Favicon-->
     
-    <div class="mySlides fade"> 
-    <div class="numbertext">8 / 10</div>
-    <img src="PHOTO-ESSAY/second%20round.jpg" style="width:100%">    
-    <div class="text">Nozzari and Myles are focused on the game as they try to save themselves from elimination in the tournament against Hasbany and Royston. 
-Both pairs were rapidly inputting button commands on their controllers to counter their opponent's attacks and land some damage of their own.  (Feb. 8, 2020 | San Luis Obispo, Calif.)
-
-</div>
-    </div>
+<!-- this script is from www.javascriptfreecode.com coded by: Krishna Eydat-->
+<html>
+<head>
+<script language="javascript" type="text/javascript">
+alert("This website is not officially affiliated with the SLO Smash Community.")
+</script>
+</head>
+</html>       
     
-        <div class="mySlides fade"> 
-    <div class="numbertext">9 / 10</div>
-    <img src="PHOTO-ESSAY/defeat.jpg" style="width:100%">    
-    <div class="text">Despite the efforts from Myers and Nozzari, they were not enough to overcome their opponents.
-
-Nozarri, staring at the television screen displaying final results, and Myers lost their second match and were eliminated from the tournament, as a result. Myers and Nozzari lost their final match-up by a score of 2-0. (Feb. 8, 2020 | San Luis Obispo, Calif.)
-    </div>
-    </div>    
-    
-        <div class="mySlides fade"> 
-    <div class="numbertext">10 / 10</div>
-    <img src="PHOTO-ESSAY/departure.jpg" style="width:100%">    
-    <div class="text">After their elimination from the doubles tournament, Nozzari and Myers left the tournament venue, but not before promising a return to the tournament scene after this loss. 
-
-"We will be back," Nozzari said. "Let 'em know." (Feb. 8, 2020 | San Luis Obispo, Calif.)
-</div>
-    </div>
-    
-  <!-- Next and previous buttons -->
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
-</div>
-<br>
-
-<!-- The dots/circles -->
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  <span class="dot" onclick="currentSlide(2)"></span>
-  <span class="dot" onclick="currentSlide(3)"></span>
-  <span class="dot" onclick="currentSlide(4)"></span>
-  <span class="dot" onclick="currentSlide(5)"></span>
-  <span class="dot" onclick="currentSlide(6)"></span>
-  <span class="dot" onclick="currentSlide(7)"></span>
-  <span class="dot" onclick="currentSlide(8)"></span>
-  <span class="dot" onclick="currentSlide(9)"></span>
-  <span class="dot" onclick="currentSlide(10)"></span>
-    
-</div>
+<!--back to top button-->
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 <script>
+window.onscroll = function() {scrollFunction()};
 
-var slideIndex = 1;
-showSlides(slideIndex);
-
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
+function scrollFunction() {
+  if (document.body.scrollTop > 30 || document.documentElement.scrollTop > 30) {
+    document.getElementById("myBtn").style.display = "block";
+  } else {
+    document.getElementById("myBtn").style.display = "none";
   }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
 }
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}    
+</script>   
+</head>
+
+<body>
+
+<!--beginning of navigation section-->
+<header>
+<div class="nav-container">
+<div class="brand"><img src="img/slostocked-logo.png" width="316" height="74" alt=""/></div>
+<nav>
+<div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
+  <ul class="nav-list">
+        <li>
+          <a href="#home">Start Screen</a>
+        </li>
+	   <li>
+          <a href="#gal">Race to the Top</a>
+		  </li>
+	  	<li>
+          <a href="#tl">Choose Your Fighter</a>
+        </li>
+        <li>
+          <a href="#vid">Live Gameplay</a>
+			</li>
+      <li>
+          <a href="#num">Learn More</a>
+			</li>
+      </ul>
+</nav>
+</div>
+<!--closing navigation tag-->
+</header>
+<!--end of navigation section-->
     
-</script>    
+<!--main image-->
+<div class="container">
+    
+</div>	
+<div class="wrapper">
+<!--animated welcome code here-->	
+</div>
+    
+<!--beginning of main content area-->
+<div class="row whiteBG">
+<h2 id="home">Start Screen</h2>
+<article>
+<p class="tab">Since its release in 1999, the Super Smash Bros. video game series has captivated millions of video gamers on various generations of Nintendo consoles. The series' most recent release, Super Smash Bros. Ultimate, is the second-highest selling game in the Nintendo Switch's history, with over 17 million copies sold as of 2019, according to Nintendo financial data.<br><br>The game is known for having a crossover of video game characters from different series — Super Mario Bros., Pokémon, The Legend of Zelda, to name a few — and its unique approach to the fighting game genre. Instead of depleting an opponent's health bar, players have to knock their opponents off the stage.<br><br>The Central Coast Smash scene sees players from various age groups, from high school students to adults, from and up and down the region — from Paso Robles to Santa Barbara. All of these players have one thing in common: their love for the game.</p>
+<p class="tab"><a href="#gal">START GAME</a></p>
+</article>
+</div>
+
+<!--beginning of slideshow section-->
+<div class="row blueBG"><!--beginning of row-->
+<h2 id="gal">Race to the Top</h2>
+<article><!--beginning of article-->
+<p class="tab">For many of those who are involved within the SLO Smash Community, local tournaments are where all the action goes down.</p>
+<!--beginning of slideshow-->
+<div id="slider"
+data-cycle-caption="#alt-caption"
+data-cycle-caption-template="{{alt}}"
+data-cycle-fx="scrollHorz"
+data-cycle-pause-on-hover="true"
+data-cycle-speed="200">
+<div class="cycle-prev"></div>
+<div class="cycle-next"></div>
+<img src="PHOTO-ESSAY/introduction.jpg" width="100%" height="100%" alt="On Saturday, Feb. 8, SLO Smash Community members gathered in Engineering IV (Bldg. 192) to compete in the third edition of Ultimate Polytown Slo-down, known within the community as UPS.<br></br>The competition began with a doubles tournament, which saw teams of two duke it out against each other to be crowned the top pairing. In total, 13 teams participated in Saturday's tournament.<br></br>(Feb. 8, 2020 | San Luis Obispo, Calif.)"/>
+<img src="PHOTO-ESSAY/treasurer.jpg" width="100%" height="100%" justify="left" alt="Economics junior and SLO Smash Community Treasurer James Hasbany said attendance at tournaments has increased over the last few years because of the popularity of the Nintendo Switch, which has the latest edition of the Super Smash Bros. video game, compared to the Nintendo Wii U. <br><br />&quot;The Wii U was the kind of console that your friend had but nobody else had,&quot;  Hasbany said.&nbsp The Nintendo Switch has sold 52.48 million units worldwide as of Dec. 31, 2019, compared to the Wii U's 13.56 million units sold, according to Nintendo's in-house financial data.<br></br>(Feb. 8, 2020 | San Luis Obispo, Calif.)"/>
+<img src="PHOTO-ESSAY/environment.jpg" width="100%" height="100%" alt="Some pairs, however, have been showing up for a while. For political science senior Mateen Nozzari and philosophy senior Bryce Myers, this was not their first tournament as a duo, but they have not won a tournament either. Myers, however, said he's &quot;come close&quot; in the past as he's &quot;tried to get better in college.&quot; Myers said he began playing the Smash Bros. series around 2005.<br></br>(Feb. 8, 2020 | San Luis Obispo, Calif.)"/>
+<img src="PHOTO-ESSAY/close-up.jpg" width="100%" height="100%" alt="Nozzari fumbled through his backpack to untangle his Nintendo Switch Pro Controller cords. Switch controllers are one of two types of controllers used in the competitive Super Smash Bros. scene, along with old-school Nintendo GameCube controllers.<br></br>Usage of controllers depends on when a player began playing Smash Bros., according to mechanical engineering senior and club member Jared Palmer. Those who have played longer will often use GameCube controllers, Palmer said, while newer players use the Switch Pro Controller.<br></br>&quot;I know that it feels very natural and you can really get those nutty little inputs,&quot; Nozzari said. &quot;You can get kind of saucy with it.&quot; (Feb. 8, 2020 | San Luis Obispo, Calif.)"/>
+<img src="PHOTO-ESSAY/first%20round.jpg" width="100%" height="100%" alt="After moments of preparation with practice rounds across the tournament venue, Nozzari and Myers are paired up for their first match of the tournament. Their opponents are Nick Plewtong and Andres Hernandez, both of whom are Cal Poly alumni.<br></br>All four players joked about the high probability of &quot;cheese&quot; during their match. Cheese is considered to be an unorthodox strategy and &quot;abusing some of the mechanics,&quot; according to Plewtong.<br></br>(Feb. 8, 2020 | San Luis Obispo, Calif.)"/>
+<img src="PHOTO-ESSAY/shocked%20reaction.jpg" width="100%" height="100%" alt="Almost immediately into the first game of the three-game match, Nozzari, Myers and their opponents were caught off-guard after Myers saved his character from losing a life. It was pure cheese.<br></br>The first game ended in favor of the Nozzari-Myers duo, but their opponents came back to win the match 2-1.<br></br>(Feb. 8, 2020 | San Luis Obispo, Calif.)"/>
+<img src="PHOTO-ESSAY/second%20round%20matchup.jpg" width="100%" height="100%" alt="After their first round loss, Nozzari and Myers took on another pair that lost their first round match: Hasbany and mathematics junior Timothy Royston. All four are making last moment preparations before their elimination game begins.<br></br>(Feb. 8, 2020 | San Luis Obispo, Calif.)"/>
+<img src="PHOTO-ESSAY/second%20round.jpg" width="100%" height="100%" alt="Nozzari and Myles are focused on the game as they try to save themselves from elimination in the tournament against Hasbany and Royston. 
+Both pairs were rapidly inputting button commands on their controllers to counter their opponent's attacks and land some damage of their own.<br></br>(Feb. 8, 2020 | San Luis Obispo, Calif.)"/>
+<img src="PHOTO-ESSAY/defeat.jpg" width="100%" height="100%" alt="Despite the efforts from Myers and Nozzari, they were not enough to overcome their opponents.<br></br> Nozarri, staring at the television screen displaying final results, and Myers lost their second match and were eliminated from the tournament, as a result. Myers and Nozzari lost their final match-up by a score of 2-0.<br></br>(Feb. 8, 2020 | San Luis Obispo, Calif.)"/>
+<img src="PHOTO-ESSAY/departure.jpg" width="100%" height="100%" alt="After their elimination from the doubles tournament, Nozzari and Myers left the tournament venue, but not before promising a return to the tournament scene after this loss.<br></br>&quot;We will be back,&quot; Nozzari said. &quot;Let 'em know.&quot;<br></br>(Feb. 8, 2020 | San Luis Obispo, Calif.)"/>
+</div><!--end of slideshow-->
+<!--beginning of slideshow caption-->
+<div id="alt-caption" class="center">
+</div><!--end of slideshow caption-->
+<p class="tab"><a href="#tl">Choose Your Fighter</a></p>
+</article><!--end of article-->
+</div><!--end of row-->
+<!--end of slideshow section-->
+	
+<!--beginning of audio section-->
+<div class="row whiteBG">
+<h2 id="tl">CHOOSE YOUR FIGHTER</h2>
+<article>
+  <p class="tab">As players continue to play the game more and more, they're likely going to have one character to rely on the most: their "main." Click on the images to hear why they main their main.<br>(Double-click to pause audio)</p>
+  <div class="table">
+	<div id="trip">
+<audio id="audio_1">
+    <source src="audio/a_audio.mp3" type="audio/mpeg" />
+</audio>        
+<audio id="audio_2">
+    <source src="audio/b_audio.mp3" type="audio/mpeg" />
+</audio>        
+<audio id="audio_3">
+	<source src="audio/c_audio.mp3" type="audio/mpeg" />
+</audio>
         
-    </body>
+<img src="img/rollover/a_resized.gif" class="rollover" alt="description" onMouseOver="this.src='img/rollover/a.jpg'" onMouseOut="this.src='img/rollover/a_resized.gif'" onClick="document.getElementById('audio_1').play(); return false;" onDblClick="document.getElementById('audio_1').pause(); return false;">
+ /&gt; 
+            
+<img src="img/rollover/b_resized.gif" class="rollover" alt="description" onMouseOver="this.src='img/rollover/b_dedede.jpg'" onMouseOut="this.src='img/rollover/b_resized.gif'" onClick="document.getElementById('audio_2').play(); return false;" onDblClick="document.getElementById('audio_2').pause(); return false;">
+ /&gt;
+            
+<img src="img/rollover/c_resized.gif" class="rollover" alt="description" onMouseOver="this.src='img/rollover/c.jpg'" onMouseOut="this.src='img/rollover/c_resized.gif'" onClick="document.getElementById('audio_3').play(); return false;" onDblClick="document.getElementById('audio_3').pause(); return false;">
+/&gt;
+	</div>
+</div>
+<p class="tab"><a href="#vid">Navigation</a></p>		
+</article>
+</div>
+<!--end of audio section-->
+    
+<!--beginning of parallax image-->
+<div class="parallax" data-parallax="scroll" data-bleed="10" data-speed="0.2" iosFix="true" data-image-src="img/parallax_b.jpg">
+</div>
+<!--end of parallax image-->
+
+<!--beginning of video section-->
+<div class="row orangeBG">
+<h2 id="vid">Live Gameplay</h2>
+<article>
+<p class="tab">For business administration senior Clay Kim, Smash is more than just a video game, as cliché as it sounds.</p>	
+<video width="100%" height="100%" poster="img/video%20still%20loading%20image_a.jpg" controls>
+<source src="video/THE%20ONE%20WITH%20THE%20LOWER%20THIRDS.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+<p class="tab"><a href="#num">Navigation</a></p>
+</article>
+</div>
+<!--end of video section-->
+
+<!--beginning of infographic section-->
+<div class="row whiteBG">
+<h2 id="num">A Brief History</h2>
+<article>
+<p class="tab"></p>
+<div class="piktowrapper-embed" style="height: 300px; position: relative;" data-uid="45001845-untitled-infographic"><div class="pikto-canvas-wrap"><div class="pikto-canvas"><div class="embed-loading-overlay" style="width: 100%; height: 100%; position: absolute; text-align: center;"><img width="60px" alt="Loading..." style="margin-top: 100px" src="https://create.piktochart.com/loading.gif"/><p style="margin: 0; padding: 0; font-family: Lato, Helvetica, Arial, sans-serif; font-weight: 600; font-size: 16px">Loading...</p></div></div></div></div><script>(function(d){var js, id="pikto-embed-js", ref=d.getElementsByTagName("script")[0];if (d.getElementById(id)) { return;}js=d.createElement("script"); js.id=id; js.async=true;js.src="https://create.piktochart.com/assets/embedding/embed.js";ref.parentNode.insertBefore(js, ref);}(document));</script></article>
+</div>
+<!--end of infographic section-->
+	
+<!--beginning of footer-->
+<footer>SLOstocked | San Luis Obispo, California | <a href="mailto: francisco@martinezafrancisco.com?Subject=Inquiry" target="_top">Contact Me</a> | Copyright 2020 | Renders of Smash Bros. Characters used under <a href="https://www.law.cornell.edu/uscode/text/17/107" target="_blank">Fair Use doctrine (17 U.S. Code § 107)</a> for educational purposes | Site by Francicso Martinez 
+</footer>
+<!--end of footer-->
+	
+</body>
+	
+<!--the following script controls the responsive navigation-->
+<script>
+	(function($) { // Begin jQuery
+  $(function() { // DOM ready
+    // If a link has a dropdown, add sub menu toggle.
+    $('nav ul li a:not(:only-child)').click(function(e) {
+      $(this).siblings('.nav-dropdown').toggle();
+      // Close one dropdown when selecting another
+      $('.nav-dropdown').not($(this).siblings()).hide();
+      e.stopPropagation();
+    });
+    // Clicking away from dropdown will remove the dropdown class
+    $('html').click(function() {
+      $('.nav-dropdown').hide();
+    });
+    // Toggle open and close nav styles on click
+    $('#nav-toggle').click(function() {
+      $('nav ul').slideToggle();
+    });
+    // Hamburger to X toggle
+    $('#nav-toggle').on('click', function() {
+      this.classList.toggle('active');
+    });
+  }); // end DOM ready
+})(jQuery); // end jQuery
+	</script>
+	<script>
+	var headertext = [];
+var headers = document.querySelectorAll("#miyazaki th"),
+tablerows = document.querySelectorAll("#miyazaki th"),
+tablebody = document.querySelector("#miyazaki tbody");
+for(var i = 0; i < headers.length; i++) {
+	var current = headers[i];
+	headertext.push( current.textContent.replace( /\r?\n|\r/,"") );
+}
+for (var i = 0, row; row = tablebody.rows[i]; i++) {
+	for (var j = 0, col; col = row.cells[j]; j++) {
+		col.setAttribute("data-th", headertext[j]);
+	}
+}
+</script>
+	
+	<!----Prevents audio tracks from playing simultaneously---->
+<script>
+document.addEventListener('play', function(e){
+    var audios = document.getElementsByTagName('audio');
+    for(var i = 0, len = audios.length; i < len;i++){
+        if(audios[i] != e.target){
+            audios[i].pause();
+        }
+    }
+}, true);
+    </script>
+
 </html>
